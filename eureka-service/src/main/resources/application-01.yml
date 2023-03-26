@@ -1,0 +1,14 @@
+server:
+  port: 8801
+spring:
+  application:
+    name: eurekaserver
+eureka:
+  # 当前Eureka Instance实例信息配置
+  instance:
+    hostname: eureka01
+  client:
+    fetch-registry: false
+    service-url:
+      #填写其他eureka服务器地址
+      defaultZone: http://eureka02:8802/eureka
