@@ -22,14 +22,15 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Resource
     BorrowMapper borrowMapper;
+    @Resource
+    RestTemplate restTemplate;
 
     @Override
     public UserBorrowDetail getUserBorrowDetailByUid(int uid) {
         List<Borrow> borrows = borrowMapper.getBorrowsByUid(uid);
-        RestTemplate restTemplate = new RestTemplate();
-        User user = restTemplate.getForObject("http://localhost:8101/user/"+uid,User.class);
+        User user = restTemplate.getForObject("http://userservice/user/"+uid,User.class);
         List<Book> books = borrows.stream()
-                .map(borrow -> restTemplate.getForObject("http://localhost:8201/book?bid="+ borrow.getBid(),Book.class))
+                .map(borrow -> restTemplate.getForObject("http://bookservice/book?bid="+ borrow.getBid(),Book.class))
                 .collect(Collectors.toList());
         return new UserBorrowDetail(user,books);
     }

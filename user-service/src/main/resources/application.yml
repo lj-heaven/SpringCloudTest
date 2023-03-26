@@ -1,8 +1,15 @@
-server:
-  port: 8101
+#server:
+#  port: 8101
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/cloudstudy?characterEncoding=utf-8&useSSL=false
     username: root
     password: 1234
+  application:
+    name: userservice
+eureka:
+  client:
+    # 指向eureka的服务地址
+    service-url:
+      defaultZone: http://localhost:8888/eureka
