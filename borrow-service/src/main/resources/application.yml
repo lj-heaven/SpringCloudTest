@@ -13,3 +13,14 @@ eureka:
     # 指向eureka的服务地址
     service-url:
       defaultZone: http://localhost:8801/eureka, http://localhost:8802/eureka
+feign:
+  circuitbreaker:
+    enabled: true # 上面无效 使用下面 服务降级
+#  sentinel:
+#    enabled: true # 上面无效 使用下面 服务降级
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
