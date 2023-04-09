@@ -1,0 +1,32 @@
+server:
+  port: 8500
+eureka:
+  client:
+    # 指向eureka的服务地址
+    service-url:
+      defaultZone: http://localhost:8801/eureka, http://localhost:8802/eureka
+spring:
+  application:
+    name: gateway
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cloudstudy?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 1234
+  cloud:
+    gateway:
+      #http://localhost:8500/borrow/1 http://borrowservice/borrow/1
+      # 配置路由，这里是列表
+      routes:
+      - id: borrow-service # 路由名称
+        uri: lb://borrowservice # 路由地址，lb表示使用负载均衡到微服务，也可以用http正常转发
+        predicates: # 路由规则，什么样的请求会被路由
+        - Path=/borrow/** # 只要是这个路径上的一律被路由到上面指定的服务
+      - id: book-service # 路由名称
+        uri: lb://bookservice # 路由地址，lb表示使用负载均衡到微服务，也可以用http正常转发
+        predicates: # 路由规则，什么样的请求会被路由
+        - Path=/book/** # 只要是这个路径上的一律被路由到上面指定的服务
+        filters: #添加过滤器
+        - AddRequestHeader=Test,HelloWorld! #添加请求头信息
+  main:
+    web-application-type: reactive

@@ -10,6 +10,8 @@
         <module>commons</module>
         <module>eureka-service</module>
         <module>hystrix-dashbroad</module>
+        <module>gateway-server</module>
+        <module>config-server</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
